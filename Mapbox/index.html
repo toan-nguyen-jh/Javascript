@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./script.js" defer></script>
+  </head>
+  <body>
+    <div id="map">
+      <div class="card-info-ctn"></div>
+      <div class="search-ctn">
+        <img src="./img/i-search.svg" alt="Search icon" class="search-ic" />
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Nhập địa điểm..."
+          autocomplete="off"
+        />
+        <ul id="suggestions-list"></ul>
+      </div>
+    </div>
+  </body>
+</html>
