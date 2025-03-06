@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+main img {
+  border-radius: 4px;
+}
+
+.main-photo-ctn {
+  display: block;
+  position: relative;
+  width: 800px;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.main-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease-in-out;
+  z-index: 1;
+  left: 0;
+  transform: translateX(0);
+}
+
+.next {
+  transform: translateX(100%);
+}
+
+.prev {
+  transform: translateX(-100%);
+}
+
+.nav-btn {
+  padding: 8px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.nav-btn img {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-btn:hover {
+  opacity: 0.8;
+}
+
+.nav-btn--left {
+  left: 16px;
+}
+
+.nav-btn--right {
+  right: 16px;
+}
+
+.nav-dot-ctn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-dot-item {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.nav-dot-item:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.nav-dot-item.active {
+  background: white;
+}
+
+.photo-list {
+  display: grid;
+  width: 100%;
+  max-width: 800px;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fill, max(1fr));
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 12px;
+  margin: 12px auto 0;
+}
+
+.photo-list img {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.sub-photo {
+  border: 2px solid transparent;
+}
+
+.sub-photo.highlight {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}

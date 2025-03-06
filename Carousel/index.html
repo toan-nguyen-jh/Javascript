@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="main-photo-ctn">
+        <!-- <img
+          class="main-image"
+          src="https://images.unsplash.com/photo-1741082212669-4566cf0077f1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8"
+          alt="Main Image"
+        /> -->
+        <div class="carousel"></div>
+        <img class="main-image" src="" alt="Main Image" />
+        <div class="nav-btn nav-btn--left">
+          <img src="./img/i-chevron-left.svg" alt="Left" />
+        </div>
+        <div class="nav-btn nav-btn--right">
+          <img src="./img/i-chevron-right.svg" alt="Right" />
+        </div>
+        <div class="nav-dot-ctn"></div>
+      </div>
+      <div class="photo-list"></div>
+    </main>
+
+    <script>
+      const IMAGE_URL_LIST = [
+        "https://images.unsplash.com/photo-1741082212669-4566cf0077f1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8",
+        "https://images.unsplash.com/photo-1741070487520-907d1359cb95?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8",
+        "https://images.unsplash.com/photo-1737042126375-10c79e59c55c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw4fHx8ZW58MHx8fHx8",
+        "https://plus.unsplash.com/premium_photo-1700169565946-dd89dcfcc542?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D",
+      ];
+
+      let currentIndex = 0;
+
+      const photoList = document.querySelector(".photo-list");
+      const carousel = document.querySelector(".carousel");
+      const navDotCtn = document.querySelector(".nav-dot-ctn");
+
+      photoList.innerHTML = IMAGE_URL_LIST.map(
+        (url, index) =>
+          `<img src="${url}" data-index="${index}" alt="Image ${
+            index + 1
+          }" class="sub-photo" />`
+      ).join("");
+
+      carousel.innerHTML = IMAGE_URL_LIST.map(
+        (url) => `<img src="${url}" alt="Image">`
+      ).join("");
+
+      navDotCtn.innerHTML = IMAGE_URL_LIST.map(
+        (_, index) =>
+          `<div class="nav-dot-item ${
+            index === 0 ? "active" : ""
+          }" data-index="${index}"></div>`
+      ).join("");
+
+      const photoElements = document.querySelectorAll(".sub-photo");
+
+      function updateNavDots() {
+        document.querySelectorAll(".nav-dot-item").forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentIndex);
+        });
+      }
+
+      function updateCarousel() {
+        const translateX = -currentIndex * 100;
+        carousel.style.transform = `translateX(${translateX}%)`;
+        photoElements.forEach((photo, index) => {
+          photo.classList.toggle("highlight", index === currentIndex);
+        });
+        updateNavDots();
+      }
+
+      updateCarousel();
+
+      document
+        .querySelector(".nav-btn--right")
+        .addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % IMAGE_URL_LIST.length;
+          updateCarousel();
+        });
+
+      document.querySelector(".nav-btn--left").addEventListener("click", () => {
+        currentIndex =
+          (currentIndex - 1 + IMAGE_URL_LIST.length) % IMAGE_URL_LIST.length;
+        updateCarousel();
+      });
+
+      photoList.addEventListener("click", (e) => {
+        if (e.target.tagName === "IMG") {
+          currentIndex = Number(e.target.dataset.index);
+          updateCarousel();
+        }
+      });
+
+      navDotCtn.addEventListener("click", (e) => {
+        if (e.target.classList.contains("nav-dot-item")) {
+          currentIndex = Number(e.target.dataset.index);
+          updateCarousel();
+        }
+      });
+    </script>
+  </body>
+</html>
